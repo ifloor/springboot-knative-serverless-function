@@ -1,10 +1,12 @@
 specVersion: 0.35.0
 name: springboot-knative-serverless-function
 runtime: springboot
-registry: ""
-image: ""
+registry: docker.io/ifloor
+image: docker.io/ifloor/springboot-knative-serverless-function:latest
+imageDigest: sha256:cbc7a1c22ba237c39a71ee08320b3124cc65f3ca39488a7f84e040bc5688ffa3
 created: 2023-06-08T16:02:10.481534301-03:00
 build:
+  builder: pack
   buildEnvs:
   - name: BP_NATIVE_IMAGE
     value: "false"
@@ -14,6 +16,7 @@ build:
     value: -Pnative -Dmaven.test.skip=true --no-transfer-progress package
   pvcSize: 256Mi
 deploy:
+  namespace: default
   healthEndpoints:
     liveness: /actuator/health
     readiness: /actuator/health
