@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.Message;
 
+import java.math.BigInteger;
 import java.util.function.Function;
 
 @SpringBootApplication
@@ -38,19 +39,18 @@ public class CloudFunctionApplication {
       if (factorial > MAX_FACTORIAL) factorial = MAX_FACTORIAL;
       if (factorial < 1) factorial = 1;
       
-      
       var result = this.calcFactorial(factorial);
       
-      return String.format("Factorial of [%s] is [%s]", factorial, result);
+      return String.format("Factorial of [%s] is [%s]", factorial, result.toString());
     };
   }
 
-  private long calcFactorial(int factorial) {
-    long resultCalculation = 1;
-    long currentValue = factorial;
+  private BigInteger calcFactorial(int factorial) {
+    BigInteger resultCalculation = new BigInteger("1");
+    int currentValue = factorial;
     
     while (currentValue > 1) {
-      resultCalculation = resultCalculation * currentValue;
+      resultCalculation = resultCalculation.multiply(new BigInteger((""+currentValue)));
 
       currentValue -= 1;
     }
