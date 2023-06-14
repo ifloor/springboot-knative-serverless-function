@@ -9,12 +9,54 @@ import java.util.function.Function;
 
 @SpringBootApplication
 public class CloudFunctionApplication {
+  private static final int DEFAULT_FACTORIAL = 10;
+  private static final int MAX_FACTORIAL = 1000;
+  private static final String FACTORIAL_HEADER_STRING = "factorial";
 
   public static void main(String[] args) {
     SpringApplication.run(CloudFunctionApplication.class, args);
   }
 
   @Bean
+  public Function<Message<String>, String> echo() {
+    return (inputMessage) -> {
+      int factorial = DEFAULT_FACTORIAL;
+      
+      if (inputMessage.getHeaders().containsKey(FACTORIAL_HEADER_STRING)) {
+        var factorialObject = inputMessage.getHeaders().get(FACTORIAL_HEADER_STRING);
+        if (factorialObject != null) {
+          try {
+            factorial = Integer.parseInt(factorialObject.toString());
+          } catch (Exception e) {
+            System.err.println("Error parsing factorial: " + e.getMessage());
+          }
+        }
+      }
+      
+      if (factorial > MAX_FACTORIAL) factorial = MAX_FACTORIAL;
+      if (factorial < 1) factorial = 1;
+      
+      
+      var result = this.calcFactorial(factorial);
+      
+      return String.format("Factorial of [%s] is [%s]", factorial, result);
+    };
+  }
+
+  private int calcFactorial(int factorial) {
+    int currentValue = factorial;
+    currentValue -= 1;
+    
+    while (currentValue > 1) {
+      currentValue *= (currentValue - 1);
+      
+      currentValue -= 1;
+    }
+    
+    return currentValue;
+  }
+  
+  /*@Bean
   public Function<Message<String>, String> echo() {
     return (inputMessage) -> {
 
@@ -32,5 +74,5 @@ public class CloudFunctionApplication {
 
       return stringBuilder.toString();
     };
-  }
+  }*/
 }
