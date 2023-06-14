@@ -19,7 +19,7 @@ public class CloudFunctionApplication {
 
   @Bean
   public Function<Message<String>, String> echo() {
-    System.out.println("Triggered function");
+    System.out.println("Triggered function!");
     
     return (inputMessage) -> {
       int factorial = DEFAULT_FACTORIAL;
