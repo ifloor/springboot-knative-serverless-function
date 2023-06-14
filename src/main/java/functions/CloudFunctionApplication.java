@@ -54,7 +54,8 @@ public class CloudFunctionApplication {
 
       currentValue -= 1;
     }
-    
+
+    System.out.println("Calculated: " + resultCalculation);
     return resultCalculation;
   }
   
