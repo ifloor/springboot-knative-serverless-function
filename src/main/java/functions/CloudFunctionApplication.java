@@ -45,17 +45,17 @@ public class CloudFunctionApplication {
     };
   }
 
-  private int calcFactorial(int factorial) {
+  private long calcFactorial(int factorial) {
+    long resultCalculation = 1;
     int currentValue = factorial;
-    currentValue -= 1;
     
     while (currentValue > 1) {
-      currentValue *= (currentValue - 1);
-      
+      resultCalculation *= currentValue;
+
       currentValue -= 1;
     }
     
-    return currentValue;
+    return resultCalculation;
   }
   
   /*@Bean
