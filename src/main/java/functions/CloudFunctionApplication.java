@@ -11,7 +11,7 @@ import java.util.function.Function;
 @SpringBootApplication
 public class CloudFunctionApplication {
   private static final int DEFAULT_FACTORIAL = 10;
-  private static final int MAX_FACTORIAL = 1000;
+  private static final int MAX_FACTORIAL = 1000000;
   private static final String FACTORIAL_HEADER_STRING = "factorial";
 
   public static void main(String[] args) {
