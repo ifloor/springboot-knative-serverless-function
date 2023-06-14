@@ -47,10 +47,10 @@ public class CloudFunctionApplication {
 
   private long calcFactorial(int factorial) {
     long resultCalculation = 1;
-    int currentValue = factorial;
+    long currentValue = factorial;
     
     while (currentValue > 1) {
-      resultCalculation *= currentValue;
+      resultCalculation = resultCalculation * currentValue;
 
       currentValue -= 1;
     }
